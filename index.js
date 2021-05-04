@@ -3,6 +3,9 @@ const dotenv = require('dotenv');
 const cors = require("cors");
 const compression = require("compression");
 const csurf = require("csurf");
+const authApiRoutes = require('./src/routes/AuthRoutes');
+const exception = require('./src/app/http/middlewares/Exception');
+const cookieSession = require("cookie-session");
 
 
 dotenv.config();
@@ -21,6 +24,9 @@ require('./src/config/MongoDbConnection');
 //Declare our Express App
 const app = express();
 
+//Register View Engine
+app.set('view engine', 'ejs');
+
 // #Middleware
 app.use(express.json()); // support json encoded bodies
 app.use(express.urlencoded({ extended: true })); // support encoded bodies
@@ -31,6 +37,16 @@ app.use((req, res, next) => {
     res.locals.secrets = secrets;
     next();
 });
+
+// #Cookie Session
+app.use(
+    cookieSession({
+        secret: secrets.COOKIE_SESSION_SECRET,
+        maxAge: 1000 * 60 * 60 * 24 * 14,
+        httpOnly: true,
+        secure: false,
+    })
+);
 
 // #CSRF security for Production
 if (process.env.NODE_ENV == "production") {
@@ -43,6 +59,16 @@ if (process.env.NODE_ENV == "production") {
 }
 
 
+//Auth APi
+app.use('/api/auth', authApiRoutes);
+
+//Exception Handlers Middleware
+app.use(exception.handleValidationError);
+app.use(exception.handleTypeError);
+app.use(exception.handleDatabaseError);
+app.use(exception.handleServerError);
+app.use(exception.handleReferenceError);
+app.use(exception.handleNotFoundError);
 
 const server = app.listen(port, () => console.log(`Server listening on port ${port}`));
 
