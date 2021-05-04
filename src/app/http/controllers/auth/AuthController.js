@@ -329,7 +329,7 @@ const passWordResetGetCode = async (req, res) => {
         
 
         res.status(httpStatus.httpStatus.OK)
-            .send(jsonResponse.error('Password reset code Sent to your registered email'));
+            .send(jsonResponse.success('Password reset code Sent to your registered email'));
             
     } catch (err) {
         console.log("Error on /api/auth/password-reset/get-code: ", err);
@@ -369,7 +369,7 @@ const passWordResetVerify = async (req, res) => {
         await Code.deleteOne({ email, code });
 
         return res.status(httpStatus.httpStatus.OK)
-            .send(jsonResponse.error('Password updated Successfully'));
+            .send(jsonResponse.success('Password updated Successfully'));
         
     } catch (err) {
         console.log("Error on /api/auth/password-reset/verify: ", err);
