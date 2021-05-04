@@ -4,7 +4,7 @@
   "description": "A Simple Token-Based User Authentication Service using JWT in Node JS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "nodemon index.js"
   },
   "author": "Abraham Udele",
@@ -25,5 +25,24 @@
     "nodemailer": "^6.6.0",
     "nodemailer-mailgun-transport": "^2.0.3",
     "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "mongodb-memory-server": "^6.9.6",
+    "supertest": "^6.1.3"
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "globalSetup": "<rootDir>/tests/setup.js",
+    "globalTeardown": "<rootDir>/tests/teardown.js",
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/setupAfterEnv.js"
+    ],
+    "testEnvironment": "<rootDir>/tests/environment.js",
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ]
   }
 }
