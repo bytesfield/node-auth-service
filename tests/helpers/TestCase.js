@@ -1,6 +1,6 @@
 
 
-const userRightPayload = () => {
+const createUser = () => {
 
     const payload = {
         firstname : "Jude",
@@ -10,25 +10,13 @@ const userRightPayload = () => {
         confirm_password : "Abkeys@1993"
     }
 
+    
+
     return payload;
     
 }
 
-const userWrongPayload = () => {
-
-    const payload = {
-        firstname : "Jude",
-        lastname : "Udele",
-        email : "codeflashtech@gmail.com",
-        password : "Abkeys",
-        confirm_password : "Abkeys"
-    }
-
-    return payload;
-    
-}
 
 module.exports = {
-    userRightPayload,
-    userWrongPayload
+    createUser
 }

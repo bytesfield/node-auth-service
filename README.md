@@ -1,6 +1,6 @@
 # Node-Auth-Service
 
-A Simple Token-Based User Authentication Service using JWT in Node JS.
+A Simple Token-Based User Authentication Service using JWT in Node JS and MongoDB.
 
 # Description
 
@@ -41,7 +41,8 @@ The API documentation is hosted on [Postman Doc](https://documenter.getpostman.c
 
 # Contribution
 
-Want to suggest some improvement on the codes? Make a push request or find me on
+Want to suggest some improvement on the codes? Make a pull request to the `dev` branch and it will be reviewed and possibly merged.
+Find me on
 <a href="https://twitter.com/SaintAbrahams/">Twitter.</a>
 <a href="https://www.linkedin.com/in/abraham-udele-246003130/">Linkedin.</a>
 

@@ -155,7 +155,7 @@ const login = async (req, res ) => {
 
     if(userStatus != "active"){
         return res.status(httpStatus.httpStatus.UNAUTHORIZED)
-            .send(jsonResponse.error('User Account not active, please activate account'));
+            .send(jsonResponse.unauthorized('User Account not active, please activate account'));
     }
 
       //Create Token
@@ -235,19 +235,20 @@ const getActivationEmail =  async (req, res) => {
 const verifyAccount =  async (req, res) => {
     try {
         const user = await User.findById(req.params.userId);
-        const response = await Code.findOne({
-            email: user.email,
-            code: req.params.secretCode,
-        });
 
         if (!user) {
             return res.status(httpStatus.httpStatus.NOT_FOUND)
                 .send(jsonResponse.error('User not found'));
         } 
 
+        const response = await Code.findOne({
+            email: user.email,
+            code: req.params.secretCode,
+        });
+
         if (!response) {
-            return res.status(httpStatus.httpStatus.NOT_FOUND)
-                .send(jsonResponse.error('Activation Link is expired or used already'));
+            return res.status(httpStatus.httpStatus.FORBIDDEN)
+                .send(jsonResponse.forbidden('Activation Link is expired or used already'));
         } 
         const activateUser = await User.updateOne(
             { email: user.email },
@@ -292,8 +293,8 @@ const passWordResetGetCode = async (req, res) => {
         const user = await authRepository.getUserByEmail(email);
 
         if (!user) {
-            return res.status(httpStatus.httpStatus.VALIDATION_ERROR)
-                .send(jsonResponse.error('The provided email address is not registered!'));
+            return res.status(httpStatus.httpStatus.NOT_FOUND)
+                .send(jsonResponse.notFound('The provided email address is not registered!'));
         }
         const secretCode = cryptoRandomString({
             length: 6,
@@ -356,11 +357,18 @@ const passWordResetVerify = async (req, res) => {
         
     }
     try {
+        const user = await authRepository.getUserByEmail(email);
+
+        if (!user) {
+            return res.status(httpStatus.httpStatus.NOT_FOUND)
+                .send(jsonResponse.notFound('The provided email address is not registered!'));
+        }
+        
         const response = await Code.findOne({ email, code });
 
         if (!response) {
-            return res.status(httpStatus.httpStatus.VALIDATION_ERROR)
-                .send(jsonResponse.error('The entered code is not correct. Please make sure to enter the code in the requested time interval.'));
+            return res.status(httpStatus.httpStatus.NOT_FOUND)
+                .send(jsonResponse.notFound('The entered code is not correct. Please make sure to enter the code in the requested time interval.'));
         }
         //Hash Password
         const newHashedPassword = await authRepository.hashPassword(password);

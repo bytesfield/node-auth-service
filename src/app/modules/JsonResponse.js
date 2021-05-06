@@ -30,14 +30,25 @@ class JsonResponse {
     }
   
       /**
+       * Generates a not found response for a request
+       *
+       * @param {string} message
+       *
+       * @return \json
+       */
+    notFound(message){
+        return this.buildResponse(message, httpError.httpErrors.NOT_FOUND, httpStatus.httpStatus.NOT_FOUND);
+    }
+
+     /**
        * Generates an unauthorized response for a request
        *
        * @param {string} message
        *
        * @return \json
        */
-    unauthorized(message){
-        return this.buildResponse(message, httpError.httpErrors.FAILED, httpStatus.httpStatus.UNAUTHORIZED);
+      unauthorized(message){
+        return this.buildResponse(message, httpError.httpErrors.UNAUTHORIZED, httpStatus.httpStatus.UNAUTHORIZED);
     }
   
       /**
@@ -48,7 +59,7 @@ class JsonResponse {
        * @return \json
        */
     methodNotAllowed(message){
-        return this.buildResponse(message, httpError.httpErrors.FAILED, httpStatus.httpStatus.METHOD_NOT_FOUND);
+        return this.buildResponse(message, httpError.httpErrors.METHOD_NOT_FOUND, httpStatus.httpStatus.METHOD_NOT_FOUND);
     }
   
       /**
@@ -59,7 +70,7 @@ class JsonResponse {
        * @return \json
        */
     failedDataCreation(message){
-        return this.buildResponse(message, httpError.httpErrors.FAILED, httpStatus.httpStatus.BAD_REQUEST);
+        return this.buildResponse(message, httpError.httpErrors.BAD_REQUEST, httpStatus.httpStatus.BAD_REQUEST);
     }
 
   
@@ -82,7 +93,7 @@ class JsonResponse {
        * @return \json
        */
     forbidden(message){
-        return this.buildResponse(message, httpError.httpErrors.FAILED, httpStatus.httpStatus.FORBIDDEN);
+        return this.buildResponse(message, httpError.httpErrors.FORBIDDEN, httpStatus.httpStatus.FORBIDDEN);
     }
 
     buildResponse(
