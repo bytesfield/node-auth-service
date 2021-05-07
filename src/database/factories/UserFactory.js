@@ -5,7 +5,7 @@ class UserFactory {
 
     async create(status = 'active'){
         //Hash Password
-        const hashedPassword = await authRepository.hashPassword('Abkeys@1993');
+        const hashedPassword = await authRepository.hashPassword('Password@123');
     
         const payload = {
             firstname : 'Abraham',

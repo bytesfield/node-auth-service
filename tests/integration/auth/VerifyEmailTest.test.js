@@ -1,7 +1,8 @@
 const Helper = require("../../helpers/Helper");
-const urlPrefix = "/api/auth";
+const { authUser } = require("../../helpers/TestCase");
 const UserFactory = require("../../../src/database/factories/UserFactory");
 const CodeFactory = require("../../../src/database/factories/CodeFactory");
+const urlPrefix = "/api/auth";
 
 const helper = new Helper();
 
@@ -50,6 +51,23 @@ describe("VerifyEmail Test", () => {
 
         expect(res.statusCode).toEqual(403);
         expect(res.statusMessage).toBe("Forbidden");
+    }, 80000);
+
+
+    it("Should verify email activation link was sent", async () => {
+
+        const user = await userFactory.create();
+        
+        const password = 'Password@123';
+
+        const token = await authUser(user.email, password);
+
+        const { res } = await helper.apiServer
+                                    .get(`${urlPrefix}/verification/get-activation-email`)
+                                    .set('auth-token', token);
+
+        expect(res.statusCode).toEqual(200);
+        expect(res.statusMessage).toBe("OK");
     }, 80000);
 
 });

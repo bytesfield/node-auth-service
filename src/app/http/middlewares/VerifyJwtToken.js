@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const httpStatus = require('../../../config/status');
+const { httpStatus } = require('../../../config/status');
 const httpError = require('../../../config/errors');
 const JsonResponse = require('../../modules/JsonResponse');
 
@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
 
     const token = req.header('auth-token');
     if(!token){
-        return res.status(httpStatus.httpStatus.CONFLICT).send(jsonResponse.error('Access Denied, token required'));
+        return res.status(httpStatus.NOT_FOUND).send(jsonResponse.notFound('Access Denied, token required'));
     }
 
     try{
@@ -24,7 +24,7 @@ module.exports = (req, res, next) => {
         const verified = jwt.verify(token, res.locals.secrets.JWT_SECRET);
         
         if(!verified){
-            return res.status(httpStatus.httpStatus.CONFLICT).send(jsonResponse.error('Invalid Token'));
+            return res.status(httpStatus.UNAUTHORIZED).send(jsonResponse.unauthorized('Invalid Token'));
 
         }
 
@@ -33,6 +33,6 @@ module.exports = (req, res, next) => {
         next();
 
     }catch(err){
-        return res.status(httpStatus.httpStatus.CONFLICT).send(jsonResponse.error('Something went wrong, token invalid'));
+        return res.status(httpStatus.CONFLICT).send(jsonResponse.error('Something went wrong, token invalid'));
     }
 }

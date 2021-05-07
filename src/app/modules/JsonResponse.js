@@ -1,5 +1,5 @@
-const httpStatus = require('../../config/status');
-const httpError = require('../../config/errors');
+const { httpStatus } = require('../../config/status');
+const { httpErrors } = require('../../config/errors');
 
 class JsonResponse {
 
@@ -9,11 +9,11 @@ class JsonResponse {
        * @param {string} message
        * @param {array} data
        *
-       * @return \json
+       * @return  \json
        */
     success(message, data = {}){
 
-        return this.buildResponse(message, httpError.httpErrors.SUCCESS, httpStatus.httpStatus.OK, data);
+        return this.buildResponse(message, httpErrors.SUCCESS, httpStatus.OK, data);
 
     }
 
@@ -26,7 +26,7 @@ class JsonResponse {
      * @return \Json
      */
     failedValidation(message, errors = {}){
-        return this.buildResponse(message, httpError.httpErrors.FAILED, httpStatus.httpStatus.VALIDATION_ERROR, errors);
+        return this.buildResponse(message, httpErrors.FAILED, httpStatus.VALIDATION_ERROR, errors);
     }
   
       /**
@@ -37,7 +37,7 @@ class JsonResponse {
        * @return \json
        */
     notFound(message){
-        return this.buildResponse(message, httpError.httpErrors.NOT_FOUND, httpStatus.httpStatus.NOT_FOUND);
+        return this.buildResponse(message, httpErrors.NOT_FOUND, httpStatus.NOT_FOUND);
     }
 
      /**
@@ -48,7 +48,7 @@ class JsonResponse {
        * @return \json
        */
       unauthorized(message){
-        return this.buildResponse(message, httpError.httpErrors.UNAUTHORIZED, httpStatus.httpStatus.UNAUTHORIZED);
+        return this.buildResponse(message, httpErrors.UNAUTHORIZED, httpStatus.UNAUTHORIZED);
     }
   
       /**
@@ -59,7 +59,7 @@ class JsonResponse {
        * @return \json
        */
     methodNotAllowed(message){
-        return this.buildResponse(message, httpError.httpErrors.METHOD_NOT_FOUND, httpStatus.httpStatus.METHOD_NOT_FOUND);
+        return this.buildResponse(message, httpErrors.METHOD_NOT_FOUND, httpStatus.METHOD_NOT_FOUND);
     }
   
       /**
@@ -70,7 +70,7 @@ class JsonResponse {
        * @return \json
        */
     failedDataCreation(message){
-        return this.buildResponse(message, httpError.httpErrors.BAD_REQUEST, httpStatus.httpStatus.BAD_REQUEST);
+        return this.buildResponse(message, httpErrors.BAD_REQUEST, httpStatus.BAD_REQUEST);
     }
 
   
@@ -82,7 +82,7 @@ class JsonResponse {
        * @return \json
        */
     error(message){
-        return this.buildResponse(message, httpError.httpErrors.FAILED, httpStatus.httpStatus.CONFLICT);
+        return this.buildResponse(message, httpErrors.FAILED, httpStatus.CONFLICT);
     }
   
       /**
@@ -93,7 +93,7 @@ class JsonResponse {
        * @return \json
        */
     forbidden(message){
-        return this.buildResponse(message, httpError.httpErrors.FORBIDDEN, httpStatus.httpStatus.FORBIDDEN);
+        return this.buildResponse(message, httpErrors.FORBIDDEN, httpStatus.FORBIDDEN);
     }
 
     buildResponse(

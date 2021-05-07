@@ -10,11 +10,11 @@ describe("Login Test", () => {
 
     const rightCredentials = {
         email : "codeflashtech@gmail.com",
-        password : "Abkeys@1993"
+        password : "Password@123"
     }
     const wrongCredentials = {
         email : "codeflashtech",
-        password : "Abkeys",
+        password : "Password",
     }
 
 
@@ -25,7 +25,6 @@ describe("Login Test", () => {
         const { res } = await helper.apiServer
                                     .post(`${urlPrefix}/login`)
                                     .send(rightCredentials);
-
         expect(res.statusCode).toEqual(200);
         expect(res.statusMessage).toBe("OK");
     }, 80000);
