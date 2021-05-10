@@ -1,5 +1,4 @@
 const Helper = require("../../helpers/Helper");
-const testCase = require("../../helpers/TestCase");
 const helper = new Helper();
 const urlPrefix = "/api/auth";
 
@@ -12,7 +11,7 @@ describe("Register Test", () => {
         password : "Abkeys@1993",
         confirm_password : "Abkeys@1993"
     }
-    const payloadWrong = {
+    const wrongPayload = {
         firstname : "Jude",
         lastname : "Udele",
         email : "codeflashtech",
@@ -20,7 +19,7 @@ describe("Register Test", () => {
         confirm_password : "Abkeys"
     }
 
-    it("Test User can register with right credentials", async () => {
+    it("Should register user with right credentials", async () => {
 
         const { res } = await helper.apiServer.post(`${urlPrefix}/register`).send(payload);
 
@@ -28,9 +27,9 @@ describe("Register Test", () => {
         expect(res.statusMessage).toBe("OK");
     }, 80000);
 
-    it("Test User can not register with wrong credentials", async () => {
+    it("Should not register user with wrong credentials", async () => {
 
-        const { res } = await helper.apiServer.post(`${urlPrefix}/register`).send(payloadWrong);
+        const { res } = await helper.apiServer.post(`${urlPrefix}/register`).send(wrongPayload);
 
         expect(res.statusCode).toEqual(422);
         expect(res.statusMessage).toBe("Unprocessable Entity");

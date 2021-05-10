@@ -7,7 +7,7 @@ const helper = new Helper();
 const userFactory = new  UserFactory();
 const codeFactory = new  CodeFactory();
 
-describe("Register Test", () => {
+describe("Password Reset Test", () => {
 
     it("Should not get password reset code without providing email", async () => {
 
@@ -17,7 +17,7 @@ describe("Register Test", () => {
 
         expect(res.statusCode).toEqual(422);
         expect(res.statusMessage).toBe("Unprocessable Entity");
-    }, 80000);
+    }, 90000);
 
     it("Should not get password reset code if email doest not exist", async () => {
 

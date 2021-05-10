@@ -6,15 +6,15 @@ const urlPrefix = "/api/auth";
 
 const helper = new Helper();
 
-describe("VerifyEmail Test", () => {
+describe("Verify Email Test", () => {
 
     const userFactory = new UserFactory();
     const codeFactory = new CodeFactory();
 
-
-    it("Test User can verify email", async () => {
+    it("Should verify user email", async () => {
 
         const user = await userFactory.create();
+
         const code = await codeFactory.create(user.email);
         const secretCode = code.code;
 
@@ -25,9 +25,10 @@ describe("VerifyEmail Test", () => {
         expect(res.statusMessage).toBe("OK");
     }, 80000);
 
-    it("Test Not Found User cannot verify email", async () => {
+    it("Should not verify email is user does not exist", async () => {
 
         const userId = '609405a3016ff2732fa110ae' ;
+
         const code = await codeFactory.create('example@example.come');
         const secretCode = code.code;
 
@@ -38,9 +39,10 @@ describe("VerifyEmail Test", () => {
         expect(res.statusMessage).toBe("Not Found");
     }, 80000);
 
-    it("Test Activation link has expired or already used", async () => {
+    it("Should not verify email if Activation link has expired or already used", async () => {
 
         const user = await userFactory.create();
+
         const code = await codeFactory.create(user.email);
         const secretCode = code.code;
 

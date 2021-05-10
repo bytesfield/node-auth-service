@@ -4,7 +4,7 @@
   "description": "A Simple Token-Based User Authentication Service using JWT in Node JS",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --forceExit --detectOpenHandles  --watchAll --maxWorkers=1",
     "start": "nodemon index.js"
   },
   "author": "Abraham Udele",

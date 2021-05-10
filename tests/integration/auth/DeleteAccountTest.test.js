@@ -71,6 +71,4 @@ describe("Delete Account Test", () => {
         expect(res.statusMessage).toBe("OK");
     }, 80000);
 
-
-
 });

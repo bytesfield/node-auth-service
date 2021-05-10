@@ -17,8 +17,7 @@ describe("Login Test", () => {
         password : "Password",
     }
 
-
-    it("Test User can login with right credentials", async () => {
+    it("Should login user with right credentials", async () => {
 
         await userFactory.create();
 
@@ -29,7 +28,7 @@ describe("Login Test", () => {
         expect(res.statusMessage).toBe("OK");
     }, 80000);
 
-    it("Test User can not login with wrong credentials", async () => {
+    it("Should not user login with wrong credentials", async () => {
 
         const user = await userFactory.create();
 
@@ -43,7 +42,7 @@ describe("Login Test", () => {
         expect(res.statusMessage).toBe("Unprocessable Entity");
     }, 80000);
 
-    it("Test InActive User can not login", async () => {
+    it("Should not login InActive User", async () => {
 
         await userFactory.create('pending');
 
@@ -53,5 +52,6 @@ describe("Login Test", () => {
 
         expect(res.statusCode).toEqual(401);
         expect(res.statusMessage).toBe("Unauthorized");
-    }, 30000);
+    }, 80000);
+
 });
